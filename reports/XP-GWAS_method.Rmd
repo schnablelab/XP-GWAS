@@ -1,0 +1,49 @@
+---
+title: 'XP-GWAS: a method for identifying trait-associated variants by sequencing pools of individuals'
+author: "Schnable Lab"
+date: "July 8, 2015"
+output: pdf_document
+---
+
+## SUMMARY: 
+Although approaches for conducting genome-wide association studies (GWAS) are well developed, conventional GWAS requires the high-density genotyping of large numbers of individuals from a diversity panel. Here we report a method for conducting GWAS that does not require the genotyping of large numbers of individuals. Instead XP-GWAS (extreme phenotype GWAS) relies on genotyping pools of individuals from a diversity panel having extreme phenotypes. This analysis measures allele frequencies in the extreme pools, enabling the discovery of associations between genetic variants and traits of interest. 
+
+## CITATION: 
+Yang et al., The Plant Journal, 2015, submitted
+
+
+## Statistical Procedure:
+
+After SNP and small indel discovery, allele counts were estimated at each polymorphic site from each pool as the input data (see below example). Note the column names should match exactly as the below example data (or under directory of **data/**).
+
+```{r}
+input <- read.table("../data/input_sample.txt", header=TRUE)
+head(input)
+```
+
+The following scripts should be ran in `R` console. An add-on package `GenABEL` should be installed first. 
+```{r}
+#install.packages("GenABEL")
+```
+
+```{r}
+setwd("../")
+source("lib/xpgwas.R")
+library("GenABEL")
+
+### get FDR corrected p-values for sites passed your filtering criterion (DEFAULT filter = 50)
+### plotlambda: indicate whether to plot the genomic control results, default = TRUE.
+qval <- xpgwas(input, filter=200,  plotlambda=TRUE)
+
+### save results
+#save(file="../cache/qval.RData", list=c("input", "qval"))
+```
+
+### Plot your results
+
+```{r}
+source("../lib/xpplot.R")
+xpplot(qval)
+```
+
+
