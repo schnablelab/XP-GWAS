@@ -1,13 +1,10 @@
-### Author: Jinliang Yang
+
 ############################
 chistat <- function(snpdf){
-  #out <- snp50[, 1:5]
-  ## high vs. low
   snpdf <- as.matrix(snpdf)
   stat <- apply(snpdf, 1, function(y){
     #Example data vector:
     #y=c(42,20,30,35,18,50)
-    #Arranged in a table like those on the board last week (for illustration)
     #tab=matrix(y,byrow=T,ncol=2)
     #tab
     
@@ -45,7 +42,6 @@ get_chistat <- function(snps=snps, filter=50){
     snpcol$random_ref <- snpcol$random_ref + 1
     snpcol$random_alt <- snpcol$random_alt + 1
     
-    #### get statistics using Dan's method!
     out$stat <- chistat(snpdf = snpcol)
     message(sprintf("###>>> DONE!"))
     return(out)
