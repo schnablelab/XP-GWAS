@@ -23,9 +23,9 @@ get_chistat <- function(snps=snps, filter=50){
     ### snps: a data.frame format input file
     ### filter: minimum depth for a given site, default=50
     
-    snps$high_total <- snps$high_ref + snps$high_ref
-    snps$low_total <- snps$low_ref + snps$low_ref
-    snps$random_total <- snps$random_ref + snps$random_ref
+    snps$high_total <- snps$high_ref + snps$high_alt
+    snps$low_total <- snps$low_ref + snps$low_alt
+    snps$random_total <- snps$random_ref + snps$random_alt
     snp50 <- subset(snps, high_total > filter & low_total > filter & random_total > filter)
     dim(snp50)
     message(sprintf("###>>> input [ %s ] variants, remaining [ %s ] after depth filtering [ > %s ]", 
